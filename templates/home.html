@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}home.html{% endblock %}
+
+{% load staticfiles %}
+
+
+{% block content %}
+
+<!-- Page Header -->
+    <header class="masthead" style="background-image: url('{% static "img/home-bg.jpg" %}')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>Donkey Blog</h1>
+                        <span class="subheading">Fill in my blog's contents. please</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="post-preview">
+          <a href="{% url 'bookmark:index' %}">
+            <h2 class="post-title">
+              Bookmark
+            </h2>
+              <br/>
+            <h3 class="post-subtitle">
+              Show my bookmark !<br/>
+                <br/>
+                And if you want to recommend a new bookmark for me,
+                Register here.
+            </h3>
+          </a>
+        </div>
+        <hr>
+        <div class="post-preview">
+          <a href="{% url 'blog:index' %}">
+            <h2 class="post-title">
+              Blog
+            </h2>
+              <br/>
+              <h3 class="post-subtitle">This is not only mine.<br/><br/>
+              Fill in Together !</h3>
+
+          </a>
+        </div>
+        <hr>
+        <div class="post-preview">
+          <a href="{% url 'photo:index' %}">
+            <h2 class="post-title">
+              Photo
+            </h2>
+              <br/>
+            <h3 class="post-subtitle">
+              You can upload photos here.<br/><br/>
+                If you want to add a albums ? You can also do it !
+            </h3>
+          </a>
+
+  <hr>
+{% endblock content %}
+
+{% block footer %}
+
+{% endblock footer %}

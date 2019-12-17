@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}post_search.html{% endblock %}
+
+{% load staticfiles %}
+{% block content %}
+<!-- Page Header -->
+    <header class="masthead" style="background-image: url('{% static "img/post-bg.jpg" %}')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>Blog</h1>
+                        <span class="subheading">Talk about our story ! </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </header>
+<br/>
+<div id="content">
+
+    <h1 style="text-align:center;">Search</h1><br/>
+    <h6 style="text-align:center;">Title / Content / Description</h6>
+
+    <form style="text-align:center;" action="." method="post">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <input type="submit" value="Submit" />
+    </form>
+
+    <br/><br/>
+
+    {% if object_list %}
+    <div class="container" id="title">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            {% for post in object_list %}
+            <div class="post-preview">
+                <a href="{{ post.get_absolute_url }}">
+                    <h2 class="post-title">
+                        {{ post.title }}
+                    </h2>
+                    <h3 class="post-subtitle">
+                        {{ post.description }}
+                    </h3>
+                </a>
+                <p class="post-meta">Posted by
+                    {{ post.modify_date|date:"N d, Y" }}<br>
+                    <a href="{% url 'blog:tagged_object_list' post.tag %}">#{{ post.tag }}</a>
+                </p>
+            </div>
+            <hr>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+    {% elif search_term %}
+    <div style="text-align:center;"><b><i>Search Word({{ search_term }}) Not Found !</i></b></div>
+    {% endif %}
+</div>
+<script type="text/javascript">window.location.hash = '#content';</script>
+{% endblock %}

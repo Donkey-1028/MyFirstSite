@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}post_all.html{% endblock %}
+
+{% load staticfiles %}
+{% block content %}
+
+<!-- Page Header -->
+    <header class="masthead" style="background-image: url('{% static "img/post-bg.jpg" %}')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>Blog</h1>
+                        <span class="subheading">Talk about our story ! </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </header>
+
+<div class="container" id="title">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            {% for post in posts %}
+            <div class="post-preview">
+                <a href="{{ post.get_absolute_url }}">
+                    <h2 class="post-title">
+                        {{ post.title }}
+                    </h2>
+                    <h3 class="post-subtitle">
+                        {{ post.description }}
+                    </h3>
+                </a>
+                <p class="post-meta">Posted by
+                    {{ post.modify_date|date:"N d, Y" }}<br>
+                    <a href="{% url 'blog:tagged_object_list' post.tag %}">#{{ post.tag }}</a>
+                </p>
+            </div>
+            <hr>
+            {% endfor %}
+        <!-- Pager -->
+                <div>
+                    <span style="float:right;">
+        <!-- 현재 페이지를 기준으로 이전 페이지가 있는지 확인 -->
+                    {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">PreviousPage / </a>
+                    {% endif %}
+
+        <!-- 현재페이지 번호, 총 페이지 개수 -->
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+
+        <!-- 현재 페이지를 기준으로 다음 페이지가 있는지 확인 -->
+                    {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number}}"> / NextPage</a>
+                    {% endif %}
+                    </span>
+                </div>
+
+        </div>
+    </div>
+</div>
+
+<hr>
+<script type="text/javascript">window.location.hash = '#title';</script>
+{% endblock %}

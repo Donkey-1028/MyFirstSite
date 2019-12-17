@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}tagging_post_list{% endblock %}
+
+{% load staticfiles %}
+{% block content %}
+<!-- Page Header -->
+    <header class="masthead" style="background-image: url('{% static "img/post-bg.jpg" %}')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>Blog</h1>
+                        <span class="subheading">Talk about our story ! </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </header>
+<br/>
+
+
+<div class="container" id="title">
+    <h3 style="text-align:center;">Posts for tag - #{{ tag.name }}</h3>
+    <div class="row">
+
+        <div class="col-lg-8 col-md-10 mx-auto">
+            {% for post in object_list %}
+            <div class="post-preview">
+                <a href="{{ post.get_absolute_url }}">
+                    <h2 class="post-title">
+                        {{ post.title }}
+                    </h2>
+                    <h3 class="post-subtitle">
+                        {{ post.description }}
+                    </h3>
+                </a>
+
+                <p class="post-meta">Posted by
+                    {{ post.modify_date|date:"N d, Y" }}<br>
+                #{{ tag.name }}</p>
+            </div>
+            <hr>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">window.location.hash = '#title';</script>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}album_form.html{% endblock %}
+
+{% load staticfiles %}
+{% block extrastyle %}{% static "css/forms.css" %}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+    <header class="masthead" style="background-image: url('{% static "img/Nature.jpeg" %}')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>Photo</h1>
+                        <span class="subheading">Share your Photo !</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </header>
+<div id="content">
+
+
+    <!-- form 이나 formset이 multipart 인코딩이 필요한지 여부 확인 -->
+    {% if form.is_multipart or formset.is_multipart %}
+    <form enctype="multipart/form-data" method="post" action=".">
+    {% else %}
+    <form method="post" action=".">
+    {% endif %}
+    {% csrf_token %}
+
+    {% if form.errors %}
+    <p class="errornote">Wrong! Please correct the FORM error(s) below.</p>
+    {% endif %}
+    {% if formset.errors %}
+    <p class="errornote">Wrong! Please correct the FORMSET error(s) below.</p>
+    {% endif %}
+
+
+    <h4>Create or Update Album contents.</h4>
+
+    <fieldset class="aligned">
+        <div class="form-row">
+            {{ form.name.label_tag }} {{ form.name }}
+        </div>
+        <div class="form-row">
+            {{ form.description.label_tag }} {{ form.description }}
+        </div>
+    </fieldset>
+
+    <h4>Create or Update Photo contents.</h4>
+
+    <!-- 폼셋에 들어 있는 각 폼을 다루는 경우, {{ formset.management_form }} 변수 반드시 추가.
+        django의 템플릿 엔진이 폼셋에 들어있는 폼의 개수를 알아야 하기 때문-->
+    {{ formset.management_form }}
+    {% for form in formset %}
+        {{ form.id }}
+    <fieldset class="aligned">
+        <div class="form-row">
+            {{ form.image.label_tag }} {{ form.image }}
+        </div>
+        <div class="form-row">
+            {{ form.title.label_tag }} {{ form.title }}
+        </div>
+        <div class="form-row">
+            {{ form.description.label_tag }} {{ form.description }}
+        </div>
+    </fieldset>
+    {% endfor %}
+
+     <button type="submit" class="btn btn-primary" style="float: right;">Submit</button>
+    <script type="text/javascript">window.location.hash = '#content';</script>
+
+    </form>
+
+</div>
+{% endblock %}

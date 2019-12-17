@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}bookmark_form.html{% endblock %}
+
+{% load staticfiles %}
+{% block extrastyle %}{% static "css/forms.css" %}{% endblock %}
+
+{% block content %}
+
+<!-- Page Header -->
+    <header class="masthead" style="background-image: url('{% static "img/about-bg.jpg" %}')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>Bookmark</h1>
+                        <span class="subheading">Fill in new bookmarks</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </header>
+<div id="content">
+
+    <form action="." method="post">
+        {% csrf_token %}
+
+        {% if form.errors %}
+        <p class="errornote">Wrong! Please correct the error(s) below.</p>
+        {% endif %}
+
+        <h4>This is a creation or update form for your bookmark.</h4>
+
+        <fieldset class="aligned">
+
+            <div class="form-row">
+                {{ form.title.label_tag }} {{ form.title }}
+            </div>
+
+            <div class="form-row">
+                {{ form.url.label_tag }} {{ form.url }}
+            </div>
+        </fieldset>
+
+
+            <button type="submit" class="btn btn-primary" style="float: right;">Submit</button>
+
+
+
+    </form>
+</div>
+<script type="text/javascript">window.location.hash = '#content';</script>
+{% endblock %}

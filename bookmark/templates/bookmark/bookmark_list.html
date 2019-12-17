@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Django Bookmark List{% endblock %}
+
+{% load staticfiles %}
+{% block content %}
+<!-- Page Header -->
+    <header class="masthead" style="background-image: url('{% static "img/about-bg.jpg" %}')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>Bookmark</h1>
+                        <span class="subheading">Fill in new bookmarks</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </header>
+<div class="container" id="title">
+    <div class="row">
+        <div class="col-lg-auto col-md-10 mx-auto">
+            <h1>Bookmark List</h1>
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-8 col-md-10 mx-auto">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">URL Name</th>
+            <th scope="col">Owner</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for bookmark in object_list %}
+            <tr>
+                <th scope="row"><li></li></th>
+                <td><a href="{% url 'bookmark:detail' bookmark.id %}">{{ bookmark }}</a></td>
+                <td>{{ bookmark.owner }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <script type="text/javascript">window.location.hash = '#title';</script>
+{% endblock %}

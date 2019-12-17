@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}album_list.html{% endblock %}
+
+{% load staticfiles %}
+{% block extrastyle %}{% static "photo/photo.css" %}{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+    <header class="masthead" style="background-image: url('{% static "img/Nature.jpeg" %}')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>Photo</h1>
+                        <span class="subheading">Share your Photo !</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </header>
+<div id="content">
+
+    {% for item in object_list %}
+
+    <div class="clear_float">
+        <h2 style="display:inline"><a href="{% url 'photo:album_detail' item.id %}">{{ item.name }}</a></h2>
+        &emsp;<b><i>{{ item.description }}</i></b>
+    </div>
+
+    <hr/>
+
+    <div class="album-list">
+        {% for photo in item.photo_set.all|slice:":5" %}
+        <div class="album-list-photo">
+            <a href="{{ photo.get_absolute_url }}">
+                <img class="img-thumbnail" src="{{ photo.image.url }}" />
+            </a>
+        </div>
+        {% endfor %}
+        <br/>
+        <br/>
+        <br/>
+    </div>
+    {% endfor %}
+</div>
+<script type="text/javascript">window.location.hash = '#content';</script>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}photo_confirm_delete.html{% endblock %}
+
+{% load staticfiles %}
+{% block content %}
+<!-- Page Header -->
+    <header class="masthead" style="background-image: url('{% static "img/Nature.jpeg" %}')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>Photo</h1>
+                        <span class="subheading">Share your Photo !</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </header>
+<div id="content">
+
+    <h1>Photo Delete</h1>
+
+    <form action="" method="post">{% csrf_token %}
+        <p>Are you sure you want to delete "{{ object }}" ?</p>
+        <input type="submit" value="Confirm" />
+    </form>
+
+</div>
+<script type="text/javascript">window.location.hash = '#content';</script>
+{% endblock %}

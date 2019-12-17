@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}post_change_list.html{% endblock %}
+
+{% load staticfiles %}
+{% block content %}
+<!-- Page Header -->
+    <header class="masthead" style="background-image: url('{% static "img/post-bg.jpg" %}')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>Blog</h1>
+                        <span class="subheading">Talk about our story ! </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </header>
+<br/>
+<br/>
+<div id="content">
+
+    <h1 style="text-align:center;">Post List Change</h1>
+
+    <table class="table table-hover">
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Owner</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+
+        {% for item in object_list %}
+        <tr>
+            <td><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.owner }}</td>
+            <td><a href="{% url 'blog:update' item.id%}">Update</a></td>
+            <td><a href="{% url 'blog:delete' item.id%}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<script type="text/javascript">window.location.hash = '#content';</script>
+{% endblock %}

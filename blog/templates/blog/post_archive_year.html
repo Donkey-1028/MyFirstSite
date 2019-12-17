@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}post_archive_year.html{% endblock %}
+
+{% load staticfiles %}
+{% block content %}
+<!-- Page Header -->
+    <header class="masthead" style="background-image: url('{% static "img/post-bg.jpg" %}')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>Blog</h1>
+                        <span class="subheading">Talk about our story ! </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </header>
+
+<h1 id="content" style="text-align:center;">Post Archives for
+        <a class="btn btn-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><h1>Month</h1></a>
+    , {{ year|date:"Y" }}
+        <div class="dropdown-menu" >
+                {% for date in date_list %}
+            <div class="dropdown-item">
+                    <a href="{% url 'blog:post_month_archive' date|date:'Y' date|date:'b' %}" >{{ date|date:'N' }}</a>
+            </div>
+                {% endfor %}
+        </div>
+</h1>
+
+
+
+
+<table class="table table-hover">
+    <tr>
+        <th>Date</th>
+        <th>Title</th>
+        <th>Owner</th>
+    </tr>
+    {% for post in object_list %}
+    <tr>
+        <td>{{ post.modify_date|date:"Y-m-d" }}</td>&nbsp;&nbsp;&nbsp;
+        <td><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></td>
+        <td>{{ post.owner }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<script type="text/javascript">window.location.hash='#content'</script>
+{% endblock %}
